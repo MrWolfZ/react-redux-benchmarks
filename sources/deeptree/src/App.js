@@ -1,46 +1,28 @@
 import React from "react";
-import { connect } from "react-redux";
-
 import Slice from "./Slice";
 import * as c from "./constants";
 import { incrementRandomCounter } from "./counters";
+import { useRedux } from "@mrwolfz/react-redux-hooks-poc";
 
-let slices;
+export const App = () => {
+  const [slices, dispatch] = useRedux(state => state.slices)
 
-const mapState = state => {
-  if (!slices) {
-    slices = Object.keys(state).map(key => Number(key));
-    slices.sort();
-  }
-
-  return { slices };
-};
-
-const mapDispatch = { incrementRandomCounter };
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.incrementRandomCounter}>
-          Update Random Counter
-        </button>
-        <div className="row">
-          {this.props.slices.map((slice, idx) => {
-            return (
-              <div style={{ display: "inline-block", minWidth: 70 }} key={idx}>
-                <Slice idx={slice} remainingDepth={c.TREE_DEPTH} />
-              </div>
-            );
-          })}
-        </div>
+  return (
+    <div>
+      <button onClick={() => dispatch(incrementRandomCounter())}>
+        Update Random Counter
+      </button>
+      <div className="row">
+        {slices.map((slice, idx) => {
+          return (
+            <div style={{ display: "inline-block", minWidth: 70 }} key={idx}>
+              <Slice idx={slice} remainingDepth={c.TREE_DEPTH} />
+            </div>
+          );
+        })}
       </div>
-    );
-  }
+    </div>
+  );
 }
-App.displayName = "App";
 
-export default connect(
-  mapState,
-  mapDispatch
-)(App);
+export default App;

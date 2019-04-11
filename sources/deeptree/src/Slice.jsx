@@ -1,43 +1,24 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
 
-const mapStateToProps = (state, props) => {
-  return {
-    value: state[props.idx]
-  };
-};
-
-const Counter = ({ value }) => {
+const Counter = ({ idx }) => {
+  const value = useReduxState(state => state.counters[idx])
   return <div>Value: {value}</div>;
 };
 
-const ConnectedCounter = connect(mapStateToProps)(Counter);
-
-class Slice extends Component {
-  state = {};
-
-  componentDidMount = () => {
-    //this.props.fillPairs(this.props.idx);
-  };
-
-  render() {
-    const { remainingDepth, idx } = this.props;
-
-    if (remainingDepth > 0) {
-      return (
+const Slice = ({ remainingDepth, idx }) => {
+  if (remainingDepth > 0) {
+    return (
+      <div>
+        {idx}.{remainingDepth}
         <div>
-          {idx}.{remainingDepth}
-          <div>
-            <Slice idx={idx} remainingDepth={remainingDepth - 1} />
-          </div>
+          <Slice idx={idx} remainingDepth={remainingDepth - 1} />
         </div>
-      );
-    }
-
-    return <ConnectedCounter idx={idx} />;
+      </div>
+    );
   }
+
+  return <Counter idx={idx} />;
 }
-Slice.displayName = "Slice";
 
 export default Slice;
-//export default connect(mapStateToProps, actions)(Slice);
