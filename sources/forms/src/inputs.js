@@ -3,17 +3,22 @@ import * as c from "./constants";
 import userEvent from "user-event";
 
 const { reducer, actions } = createSlice({
-  initialState: {},
+  initialState: {
+    inputs: {},
+    slices: [],
+  },
   reducers: {
     initialize(state, action) {
       const { numberOfInputs } = action.payload;
       for (let i = 0; i < numberOfInputs; i++) {
-        state[i] = "";
+        state.inputs[i] = "";
       }
+
+      state.slices = Object.keys(state.inputs).map(key => Number(key));
     },
     updateInput(state, action) {
       const { inputId, text } = action.payload;
-      state[inputId] = text;
+      state.inputs[inputId] = text;
     }
   }
 });
