@@ -5,7 +5,7 @@ import App from "./App";
 import "fps-emit";
 
 import * as c from "./constants";
-import { initialize, incrementRandomCounter, incrementMany } from "./counters";
+import { initialize } from "./counters";
 
 import { Provider } from "react-redux";
 
