@@ -1,14 +1,13 @@
 import React from "react";
 import { updateInput } from "./inputs";
 import * as c from "./constants";
-import { useRedux } from '@mrwolfz/react-redux-hooks-poc'
+import { useReduxState, useReduxActions } from '@mrwolfz/react-redux-hooks-poc'
 
 export const Form = ({ id }) => {
-  const [text, dispatch] = useRedux(state => state.inputs[id])
-
-  const onChange = e => {
-    dispatch(updateInput({ inputId: id, text: e.target.value }))
-  }
+  const text = useReduxState(state => state.inputs[id])
+  const { onChange } = useReduxActions({
+    onChange: e => updateInput({ inputId: id, text: e.target.value })
+  }, [id])
 
   const fillers = Array.from({
     length: c.NUMBER_OF_CHECKBOXES_PER_FORM

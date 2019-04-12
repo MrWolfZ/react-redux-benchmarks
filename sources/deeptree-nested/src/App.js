@@ -3,39 +3,47 @@ import Slice from "./Slice";
 import * as c from "./constants";
 import { incrementMany, incrementRandomCounter } from "./counters";
 import { appendRandomCharacter, appendRandomCharToMany } from "./strings";
-import { useRedux } from "@mrwolfz/react-redux-hooks-poc";
+import { useReduxState, useReduxActions } from "@mrwolfz/react-redux-hooks-poc";
 
 function doUpdateMany(mod) {
   return incrementMany({ mod });
 }
 
 export const App = () => {
-  const [slices, dispatch] = useRedux(state => state.counters.slices)
+  const slices = useReduxState(state => state.counters.slices)
+
+  const actions = useReduxActions({
+    incrementRandomCounter,
+    incrementFifth: () => doUpdateMany(5),
+    incrementThird: () => doUpdateMany(3),
+    appendRandomCharacter,
+    appendMany: appendRandomCharToMany(4),
+  }, [])
 
   return (
     <div>
       <div>
         <button
           id="incrementRandom"
-          onClick={() => dispatch(incrementRandomCounter())}
+          onClick={actions.incrementRandomCounter}
         >
           Update Random Counter
-          </button>
-        <button id="incrementFifth" onClick={() => dispatch(doUpdateMany(5))}>
+        </button>
+        <button id="incrementFifth" onClick={actions.incrementFifth}>
           Update 1/5 Counters
-          </button>
-        <button id="incrementThird" onClick={() => dispatch(doUpdateMany(3))}>
+        </button>
+        <button id="incrementThird" onClick={actions.incrementThird}>
           Update 1/3 Counters
-          </button>
+        </button>
         <button
           id="appendRandomCharacter"
-          onClick={() => dispatch(appendRandomCharacter())}
+          onClick={actions.appendRandomCharacter}
         >
           Append Random Char
-          </button>
-        <button id="appendMany" onClick={() => dispatch(appendRandomCharToMany(4))}>
+        </button>
+        <button id="appendMany" onClick={actions.appendMany}>
           Append Char to Many
-          </button>
+        </button>
       </div>
       <div className="row">
         {slices.map((slice, idx) => {
