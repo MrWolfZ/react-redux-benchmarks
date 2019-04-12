@@ -1,73 +1,70 @@
 import React from 'react'
-import { Component } from 'react'
-import { connect } from 'react-redux'
+import { useReduxActions, useReduxState } from '@mrwolfz/react-redux-hooks-poc'
 import * as actions from '../actions'
 
-export class Node extends Component {
-  handleIncrementClick = () => {
-    const { increment, id } = this.props
+export const Node = ({ id, parentId }) => {
+  const { counter, childIds } = useReduxState(state => state[id])
+
+  const {
+    increment,
+    createNode,
+    addChild,
+    removeChild,
+    deleteNode,
+  } = useReduxActions(actions, [])
+
+  function handleIncrementClick() {
     increment(id)
   }
 
-  handleAddChildClick = e => {
+  function handleAddChildClick(e) {
     e.preventDefault()
 
-    const { addChild, createNode, id } = this.props
     const childId = createNode().nodeId
     addChild(id, childId)
   }
 
-  handleRemoveClick = e => {
+  function handleRemoveClick(e) {
     e.preventDefault()
 
-    const { removeChild, deleteNode, parentId, id } = this.props
     removeChild(parentId, id)
     deleteNode(id)
   }
 
-  renderChild = childId => {
-    const { id } = this.props
+  function renderChild(childId) {
     return (
       <li key={childId}>
-        <ConnectedNode id={childId} parentId={id} />
+        <Node id={childId} parentId={id} />
       </li>
     )
   }
 
-  render() {
-    const { counter, parentId, childIds, id } = this.props
-    return (
-      <div>
-        Counter #{id}: {counter}
-        {' '}
-        <button className="increment" onClick={this.handleIncrementClick}>
-          +
-        </button>
-        {' '}
-        {typeof parentId !== 'undefined' &&
-          <a href="#" className="deleteNode" onClick={this.handleRemoveClick} // eslint-disable-line jsx-a11y/href-no-hash
-             style={{ color: 'lightgray', textDecoration: 'none' }}>
-            Delete
+  return (
+    <div>
+      Counter #{id}: {counter}
+      {' '}
+      <button className="increment" onClick={handleIncrementClick}>
+        +
+      </button>
+      {' '}
+      {typeof parentId !== 'undefined' &&
+        <a href="#" className="deleteNode" onClick={handleRemoveClick} // eslint-disable-line jsx-a11y/anchor-is-valid
+          style={{ color: 'lightgray', textDecoration: 'none' }}>
+          Delete
+        </a>
+      }
+      <ul>
+        {childIds.map(renderChild)}
+        <li key="add">
+          <a href="#" className="addChild" // eslint-disable-line jsx-a11y/anchor-is-valid
+            onClick={handleAddChildClick}
+          >
+            Add child
           </a>
-        }
-        <ul>
-          {childIds.map(this.renderChild)}
-          <li key="add">
-            <a href="#" className="addChild" // eslint-disable-line jsx-a11y/href-no-hash
-              onClick={this.handleAddChildClick}
-            >
-              Add child
-            </a>
-          </li>
-        </ul>
-      </div>
-    )
-  }
+        </li>
+      </ul>
+    </div>
+  )
 }
 
-function mapStateToProps(state, ownProps) {
-  return state[ownProps.id]
-}
-
-const ConnectedNode = connect(mapStateToProps, actions)(Node)
-export default ConnectedNode
+export default Node
