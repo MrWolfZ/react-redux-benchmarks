@@ -1,31 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
 
 import TwitterLite from "./TwitterLite";
 
-const mapStateToProps = (state, props) => {
-  return {
-    slice: state[props.idx]
-  };
-};
-
-class Slice extends Component {
-  state = {};
-
-  // componentDidMount = () => {
-  //     this.props.fillPairs(this.props.idx);
-  // }
-
-  render() {
-    const { slice, idx } = this.props;
-    return (
-      <ul className="list-group">
-        {slice.map(tweet => {
-          return <TwitterLite sliceId={idx} tweet={tweet} />;
-        })}
-      </ul>
-    );
-  }
+export const Slice = ({ idx }) => {
+  const slice = useReduxState(state => state[idx]);
+  return (
+    <ul className="list-group">
+      {slice.map(tweet => {
+        return <TwitterLite sliceId={idx} tweet={tweet} />;
+      })}
+    </ul>
+  );
 }
 
-export default connect(mapStateToProps)(Slice);
+export default Slice

@@ -1,45 +1,38 @@
-import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import React, { Component } from "react";
+import React from "react";
+import { useReduxState, useReduxActions } from "@mrwolfz/react-redux-hooks-poc";
 
 const exampleMapStateToProps = createSelector(
   (state, props) => "foobar",
   foo => ({ foo })
 );
 
-const foobar = () => {};
-const exampleMapDispatchToProps = { foobar };
+const foobar = () => { };
 
-class Internal extends Component {
-  render() {
-    return <div>barfoo</div>;
-  }
+export const Internal = () => {
+  return <div>barfoo</div>;
 }
 
-class InternalContainer extends Component {
-  render() {
-    return <Internal />;
-  }
+export const InternalContainer = () => {
+  // eslint-disable-next-line no-unused-vars
+  const state = useReduxState(exampleMapStateToProps)
+  // eslint-disable-next-line no-unused-vars
+  const actions = useReduxActions({ foobar })
+
+  return <Internal />;
 }
 
-const InternalContainerConnected = connect(
-  exampleMapStateToProps,
-  exampleMapDispatchToProps
-)(InternalContainer);
-
-class Example extends Component {
-  render() {
-    return <InternalContainerConnected />;
-  }
+export const Example = () => {
+  return <InternalContainer />;
 }
 
-class ExampleContainer extends Component {
-  render() {
-    return <Example />;
-  }
+export const ExampleContainer = () => {
+  // eslint-disable-next-line no-unused-vars
+  const state = useReduxState(exampleMapStateToProps)
+  // eslint-disable-next-line no-unused-vars
+  const actions = useReduxActions({ foobar })
+
+  return <Example />;
 }
 
-export default connect(
-  exampleMapStateToProps,
-  exampleMapDispatchToProps
-)(ExampleContainer);
+export default ExampleContainer;
