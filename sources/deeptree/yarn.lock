@@ -838,10 +838,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@mrwolfz/react-redux-hooks-poc@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@mrwolfz/react-redux-hooks-poc/-/react-redux-hooks-poc-0.1.5.tgz#1aacbf4134c2e3610cb2d342202b6efad7d3c88e"
-  integrity sha512-+5QqdYTAHuz5MbrxDar9zzNeIV0/dEV8EaW8iuIFkpDgRXe++TbWsYCc04ZfVT6BcpsyFc/RokGYPS2Nz5EFrg==
+"@mrwolfz/react-redux-hooks-poc@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@mrwolfz/react-redux-hooks-poc/-/react-redux-hooks-poc-0.2.0.tgz#15e3ae2778114d3399b61f423495ea50fa0979dd"
+  integrity sha512-uL+EtOLCtpK4bHADCZEs27Q2f3lxSg0svZjOGQJTi6KR/2VSFrLCAsfFY14XKwltHJ1O4icR/0szi+8n0votQQ==
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
