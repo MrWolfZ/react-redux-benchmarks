@@ -5,7 +5,7 @@ import App from "./App";
 import "fps-emit";
 
 import * as c from "./constants";
-import { updatePair, updateRandomPairInSlice, fillPairs } from "./pairActions";
+import { updateRandomPairInSlice, fillPairs } from "./pairActions";
 
 import { Provider } from "react-redux";
 
