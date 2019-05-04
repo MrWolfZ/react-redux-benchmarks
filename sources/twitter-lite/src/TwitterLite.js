@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import React from "react";
-import { useReduxState, useReduxActions } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector, useDispatch } from "react-redux";
 
 const exampleMapStateToProps = createSelector(
   (state, props) => "foobar",
@@ -14,10 +14,11 @@ export const Internal = () => {
 }
 
 export const InternalContainer = () => {
+  const dispatch = useDispatch()
   // eslint-disable-next-line no-unused-vars
-  const state = useReduxState(exampleMapStateToProps)
+  const state = useSelector(exampleMapStateToProps, [])
   // eslint-disable-next-line no-unused-vars
-  const actions = useReduxActions({ foobar })
+  const dispatchFooBar = () => dispatch(foobar())
 
   return <Internal />;
 }
@@ -27,10 +28,11 @@ export const Example = () => {
 }
 
 export const ExampleContainer = () => {
+  const dispatch = useDispatch()
   // eslint-disable-next-line no-unused-vars
-  const state = useReduxState(exampleMapStateToProps)
+  const state = useSelector(exampleMapStateToProps, [])
   // eslint-disable-next-line no-unused-vars
-  const actions = useReduxActions({ foobar })
+  const dispatchFooBar = () => dispatch(foobar())
 
   return <Example />;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "./Form";
 import { typeTextInRandomInput } from "./inputs";
-import { useReduxState } from '@mrwolfz/react-redux-hooks-poc'
+import { useSelector } from "react-redux";
 
 async function infiniteBobRoss() {
   while (true) {
@@ -10,7 +10,7 @@ async function infiniteBobRoss() {
 }
 
 export const App = () => {
-  const slices = useReduxState(state => state.slices)
+  const slices = useSelector(state => state.slices)
 
   return (
     <div>

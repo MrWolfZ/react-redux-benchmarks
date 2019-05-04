@@ -2,10 +2,11 @@ import React from "react";
 import Slice from "./Slice";
 import * as c from "./constants";
 import { incrementRandomCounter } from "./counters";
-import { useRedux } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector, useDispatch } from "react-redux";
 
 export const App = () => {
-  const [slices, dispatch] = useRedux(state => state.slices)
+  const dispatch = useDispatch()
+  const slices = useSelector(state => state.slices)
 
   return (
     <div>

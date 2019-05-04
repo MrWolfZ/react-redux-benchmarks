@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef } from "react";
-import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector } from "react-redux";
 
 export const Pair = React.memo(({ sliceId, pairId }) => {
-  const { name, value } = useReduxState(state => state[sliceId][pairId])
+  const { name, value } = useSelector(state => state[sliceId][pairId])
   const prevValue = useRef()
 
   const direction =

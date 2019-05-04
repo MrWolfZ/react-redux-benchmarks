@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useReduxActions } from "@mrwolfz/react-redux-hooks-poc";
+import { useDispatch } from "react-redux";
 import { ReactReduxContext } from 'react-redux'
 import Slice from "./Slice";
 import { updateRandomPairInSlice } from "./pairActions";
@@ -7,11 +7,11 @@ import { updateRandomPairInSlice } from "./pairActions";
 export const App = () => {
   const { store } = useContext(ReactReduxContext)
   const nrOfSlices = Object.keys(store.getState()).length
-  const actions = useReduxActions({ updateRandomPairInSlice }, [])
+  const dispatch = useDispatch()
 
   return (
     <div>
-      <button onClick={actions.updateRandomPairInSlice}>
+      <button onClick={() => dispatch(updateRandomPairInSlice)}>
         Update Random Pair
       </button>
       <div className="row">

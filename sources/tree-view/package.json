@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "@acemarke/redux-starter-kit": "0.0.7",
-    "@mrwolfz/react-redux-hooks-poc": "^0.2.0",
     "fps-emit": "file:../../fps-emit",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-redux": "^7.0.1",
+    "react-redux": "^7.1.0-alpha.4",
     "redux": "^4.0",
     "schedule": "^0.3.0",
     "seedrandom": "^2.4.4"

@@ -1,10 +1,10 @@
 import React from "react";
-import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector } from "react-redux";
 
 import TwitterLite from "./TwitterLite";
 
 export const Slice = ({ idx }) => {
-  const slice = useReduxState(state => state[idx]);
+  const slice = useSelector(state => state[idx]);
   return (
     <ul className="list-group">
       {slice.map(tweet => {

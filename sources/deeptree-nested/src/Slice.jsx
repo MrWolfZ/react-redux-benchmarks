@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import { initialize, createStringId } from "./strings";
 import { TEXT_INPUT_MOD } from "./constants";
-import { useRedux, useReduxState } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector, useDispatch } from "react-redux";
 
 const Counter = ({ idx }) => {
-  const value = useReduxState(state => state.counters.counters[idx])
+  const value = useSelector(state => state.counters.counters[idx])
   return <div>Value: {value}</div>;
 };
 
 const TextDisplay = ({ idx, inputId, children }) => {
-  const [{
-    stringId,
-    text,
-  }, dispatch] = useRedux(state => {
+  const dispatch = useDispatch()
+  const { stringId, text } = useSelector(state => {
     const stringId = createStringId(idx, inputId);
     const text = state.strings[stringId] || "unknown";
     return { stringId, text }
@@ -20,7 +18,7 @@ const TextDisplay = ({ idx, inputId, children }) => {
 
   useEffect(() => {
     dispatch(initialize({ stringId }))
-  }, [stringId])
+  }, [dispatch, stringId])
 
   return (
     <div>

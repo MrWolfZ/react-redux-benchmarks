@@ -1,8 +1,8 @@
 import React from "react";
-import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector } from "react-redux";
 
 const Counter = ({ idx }) => {
-  const value = useReduxState(state => state.counters[idx])
+  const value = useSelector(state => state.counters[idx])
   return <div>Value: {value}</div>;
 };
 

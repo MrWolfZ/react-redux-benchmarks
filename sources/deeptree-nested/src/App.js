@@ -3,45 +3,38 @@ import Slice from "./Slice";
 import * as c from "./constants";
 import { incrementMany, incrementRandomCounter } from "./counters";
 import { appendRandomCharacter, appendRandomCharToMany } from "./strings";
-import { useReduxState, useReduxActions } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector, useDispatch } from "react-redux";
 
 function doUpdateMany(mod) {
   return incrementMany({ mod });
 }
 
 export const App = () => {
-  const slices = useReduxState(state => state.counters.slices)
-
-  const actions = useReduxActions({
-    incrementRandomCounter,
-    incrementFifth: () => doUpdateMany(5),
-    incrementThird: () => doUpdateMany(3),
-    appendRandomCharacter,
-    appendMany: appendRandomCharToMany(4),
-  }, [])
+  const slices = useSelector(state => state.counters.slices)
+  const dispatch = useDispatch()
 
   return (
     <div>
       <div>
         <button
           id="incrementRandom"
-          onClick={actions.incrementRandomCounter}
+          onClick={() => dispatch(incrementRandomCounter())}
         >
           Update Random Counter
         </button>
-        <button id="incrementFifth" onClick={actions.incrementFifth}>
+        <button id="incrementFifth" onClick={() => dispatch(doUpdateMany(5))}>
           Update 1/5 Counters
         </button>
-        <button id="incrementThird" onClick={actions.incrementThird}>
+        <button id="incrementThird" onClick={() => dispatch(doUpdateMany(3))}>
           Update 1/3 Counters
         </button>
         <button
           id="appendRandomCharacter"
-          onClick={actions.appendRandomCharacter}
+          onClick={() => dispatch(appendRandomCharacter())}
         >
           Append Random Char
         </button>
-        <button id="appendMany" onClick={actions.appendMany}>
+        <button id="appendMany" onClick={() => dispatch(appendRandomCharToMany(4))}>
           Append Char to Many
         </button>
       </div>

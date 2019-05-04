@@ -1,9 +1,9 @@
 import React from "react";
-import { useReduxState } from "@mrwolfz/react-redux-hooks-poc";
+import { useSelector } from "react-redux";
 import Pair from "./Pair";
 
 export const Slice = ({ idx }) => {
-  const slice = useReduxState(state => state[idx]);
+  const slice = useSelector(state => state[idx]);
   return (
     <ul className="list-group">
       {slice.map(pair => {
